@@ -51,7 +51,7 @@
 {
     QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
     [self presentViewController:qrVC animated:YES completion:nil];
-    //对数据进行回调
+    //对数据进行回调，并将扫描得到的二维码生成为二维码图片
     __weak typeof(self) weakSelf = self;
     [qrVC scanQrcodeWithResultBlock:^(QrCodeViewController *qrVC, NSString *resultMessage) {
         if ([resultMessage isEqualToString:FailMessageFlag] || [resultMessage isEqualToString:CancelMessageFlag]) {
