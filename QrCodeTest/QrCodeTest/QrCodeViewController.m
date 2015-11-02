@@ -103,7 +103,6 @@ static const float kReaderViewHeight = 200;
 {
     AVCaptureDevice * captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
-    //摄像头判断
     NSError * error = nil;
     
     AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];

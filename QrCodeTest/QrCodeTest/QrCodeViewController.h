@@ -13,6 +13,6 @@
 
 @interface QrCodeViewController : UIViewController
 
-- (void)scanQrcodeWithResultBlock:(void (^)(QrCodeViewController * qrVC,NSString * resultMessage))block;
+- (void)scanQrcodeWithResultBlock:(void (^)(QrCodeViewController * qrVC, NSString * resultMessage))block;
 
 @end

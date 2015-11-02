@@ -53,8 +53,9 @@
 {
     QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
     [self presentViewController:qrVC animated:YES completion:nil];
+    //对数据进行回调
     __weak typeof(self) weakSelf = self;
-    [qrVC scanQrcodeWithResultBlock:^(QrCodeViewController *qrVC, NSString *resultMessage) {
+    [qrVC scanQrcodeWithResultBlock:^(QrCodeViewController * qrVC, NSString *resultMessage) {
         if ([resultMessage isEqualToString:FailMessageFlag] || [resultMessage isEqualToString:CancelMessageFlag]) {
             [qrVC dismissViewControllerAnimated:YES completion:nil];
         } else {
