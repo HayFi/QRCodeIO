@@ -20,7 +20,6 @@
 		552AB83E1BE75C4B00F31940 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 552AB83D1BE75C4B00F31940 /* Assets.xcassets */; };
 		552AB8571BE75C6000F31940 /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8411BE75C6000F31940 /* bitstream.c */; };
 		552AB8581BE75C6000F31940 /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8431BE75C6000F31940 /* mask.c */; };
-		552AB8591BE75C6000F31940 /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8461BE75C6000F31940 /* QRCodeGenerator.m */; };
 		552AB85A1BE75C6000F31940 /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8471BE75C6000F31940 /* qrencode.c */; };
 		552AB85B1BE75C6000F31940 /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8491BE75C6000F31940 /* qrinput.c */; };
 		552AB85C1BE75C6000F31940 /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 552AB84B1BE75C6000F31940 /* qrspec.c */; };
@@ -72,8 +71,6 @@
 		552AB8421BE75C6000F31940 /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
 		552AB8431BE75C6000F31940 /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
 		552AB8441BE75C6000F31940 /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
-		552AB8451BE75C6000F31940 /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
-		552AB8461BE75C6000F31940 /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
 		552AB8471BE75C6000F31940 /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
 		552AB8481BE75C6000F31940 /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
 		552AB8491BE75C6000F31940 /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
@@ -207,8 +204,6 @@
 				552AB8421BE75C6000F31940 /* bitstream.h */,
 				552AB8431BE75C6000F31940 /* mask.c */,
 				552AB8441BE75C6000F31940 /* mask.h */,
-				552AB8451BE75C6000F31940 /* QRCodeGenerator.h */,
-				552AB8461BE75C6000F31940 /* QRCodeGenerator.m */,
 				552AB8471BE75C6000F31940 /* qrencode.c */,
 				552AB8481BE75C6000F31940 /* qrencode.h */,
 				552AB8491BE75C6000F31940 /* qrinput.c */,
@@ -368,7 +363,6 @@
 				550FA6291BDF6B13004A2CFA /* ViewController.m in Sources */,
 				552AB85F1BE75C6000F31940 /* QrCodeView.m in Sources */,
 				552AB85C1BE75C6000F31940 /* qrspec.c in Sources */,
-				552AB8591BE75C6000F31940 /* QRCodeGenerator.m in Sources */,
 				552AB85E1BE75C6000F31940 /* split.c in Sources */,
 				552AB8571BE75C6000F31940 /* bitstream.c in Sources */,
 				550FA6261BDF6B13004A2CFA /* AppDelegate.m in Sources */,

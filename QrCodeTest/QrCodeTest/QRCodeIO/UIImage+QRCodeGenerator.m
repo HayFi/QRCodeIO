@@ -15,8 +15,9 @@ enum {
 
 @implementation UIImage (QRCodeGenerator)
 
-+ (void)drawQRCode:(QRcode *)code context:(CGContextRef)ctx size:(CGFloat)size {
-    unsigned char *data = 0;
++ (void)drawQRCode:(QRcode *)code context:(CGContextRef)ctx size:(CGFloat)size
+{
+    unsigned char * data = 0;
     int width;
     data = code->data;
     width = code->width;
@@ -37,7 +38,8 @@ enum {
     CGContextFillPath(ctx);
 }
 
-+ (UIImage *)qrImageForString:(NSString *)string imageSize:(CGFloat)size {
++ (UIImage *)qrImageForString:(NSString *)string imageSize:(CGFloat)size
+{
     if (![string length]) {
         return nil;
     }
@@ -56,7 +58,7 @@ enum {
     CGContextConcatCTM(ctx, CGAffineTransformConcat(translateTransform, scaleTransform));
     
     // draw QR on this context
-    [self drawQRCode:code context:ctx size:size];
+    [UIImage drawQRCode:code context:ctx size:size];
     
     // get image
     CGImageRef qrCGImage = CGBitmapContextCreateImage(ctx);
