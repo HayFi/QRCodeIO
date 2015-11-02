@@ -31,7 +31,7 @@ enum {
                 rectDraw.origin = CGPointMake((j + qr_margin) * zoom,(i + qr_margin) * zoom);
                 CGContextAddRect(ctx, rectDraw);
             }
-            ++data;
+            ++ data;
         }
     }
     CGContextFillPath(ctx);

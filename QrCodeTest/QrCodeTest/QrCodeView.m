@@ -40,7 +40,7 @@ static const float kReaderViewHeight = 200;
         [self addSubview:leftView];
         
         //右侧的view
-        UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - CGRectGetMaxX(leftView.frame), kLineMinY, CGRectGetMaxX(leftView.frame), kReaderViewHeight)];
+        UIView * rightView = [[UIView alloc] initWithFrame:CGRectMake(MAIN_SCREEN_WIDTH - CGRectGetMaxX(leftView.frame), kLineMinY, CGRectGetMaxX(leftView.frame), kReaderViewHeight)];
         rightView.alpha = 0.3;
         rightView.backgroundColor = [UIColor blackColor];
         [self addSubview:rightView];
@@ -48,13 +48,13 @@ static const float kReaderViewHeight = 200;
         CGFloat space_h = MAIN_SCREEN_HEIGHT - kLineMaxY;
         
         //底部view
-        UIView *downView = [[UIView alloc] initWithFrame:CGRectMake(0, kLineMaxY, MAIN_SCREEN_WIDTH, space_h)];
+        UIView * downView = [[UIView alloc] initWithFrame:CGRectMake(0, kLineMaxY, MAIN_SCREEN_WIDTH, space_h)];
         downView.alpha = 0.3;
         downView.backgroundColor = [UIColor blackColor];
         [self addSubview:downView];
         
         //四个边角
-        UIImage *cornerImage = [UIImage imageNamed:@"ScanQR1"];
+        UIImage * cornerImage = [UIImage imageNamed:@"ScanQR1"];
         
         //左侧的view
         UIImageView *leftView_image = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(leftView.frame) - cornerImage.size.width / 2.0, CGRectGetMaxY(upView.frame) - cornerImage.size.height / 2.0, cornerImage.size.width, cornerImage.size.height)];
@@ -67,20 +67,17 @@ static const float kReaderViewHeight = 200;
         UIImageView *rightView_image = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(rightView.frame) - cornerImage.size.width / 2.0, CGRectGetMaxY(upView.frame) - cornerImage.size.height / 2.0, cornerImage.size.width, cornerImage.size.height)];
         rightView_image.image = cornerImage;
         [self addSubview:rightView_image];
-        
         cornerImage = [UIImage imageNamed:@"ScanQR3"];
         
         //底部view
         UIImageView *downView_image = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(leftView.frame) - cornerImage.size.width / 2.0, CGRectGetMinY(downView.frame) - cornerImage.size.height / 2.0, cornerImage.size.width, cornerImage.size.height)];
         downView_image.image = cornerImage;
-        //downView.backgroundColor = [UIColor blackColor];
         [self addSubview:downView_image];
         
         cornerImage = [UIImage imageNamed:@"ScanQR4"];
         
         UIImageView * downViewRight_image = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMinX(rightView.frame) - cornerImage.size.width / 2.0, CGRectGetMinY(downView.frame) - cornerImage.size.height / 2.0, cornerImage.size.width, cornerImage.size.height)];
         downViewRight_image.image = cornerImage;
-        //downView.backgroundColor = [UIColor blackColor];
         [self addSubview:downViewRight_image];
         
         //说明label
@@ -109,8 +106,7 @@ static const float kReaderViewHeight = 200;
     
     static BOOL flag = YES;
     
-    if (flag)
-    {
+    if (flag) {
         frame.origin.y = kLineMinY;
         flag = NO;
         
@@ -120,20 +116,14 @@ static const float kReaderViewHeight = 200;
             _line.frame = frame;
             
         } completion:nil];
-    }
-    else
-    {
-        if (_line.frame.origin.y >= kLineMinY)
-        {
-            if (_line.frame.origin.y >= kLineMaxY - 12)
-            {
+    } else {
+        if (_line.frame.origin.y >= kLineMinY) {
+            if (_line.frame.origin.y >= kLineMaxY - 12) {
                 frame.origin.y = kLineMinY;
                 _line.frame = frame;
                 
                 flag = YES;
-            }
-            else
-            {
+            } else {
                 [UIView animateWithDuration:1.0 / 20 animations:^{
                     
                     frame.origin.y += 5;
@@ -141,22 +131,10 @@ static const float kReaderViewHeight = 200;
                     
                 } completion:nil];
             }
-        }
-        else
-        {
+        } else {
             flag = !flag;
         }
     }
-    
-    //NSLog(@"_line.frame.origin.y==%f",_line.frame.origin.y);
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 @end

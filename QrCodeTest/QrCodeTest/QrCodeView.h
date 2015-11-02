@@ -10,7 +10,7 @@
 
 @interface QrCodeView : UIView
 
-@property (nonatomic, strong) UIImageView *line;//交互线
-@property (nonatomic, strong) NSTimer *lineTimer;//交互线控制
+@property (nonatomic, strong) UIImageView * line;//交互线
+@property (nonatomic, strong) NSTimer * lineTimer;//交互线控制
 
 @end
