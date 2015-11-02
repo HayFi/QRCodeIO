@@ -22,7 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"showIt" style:UIBarButtonItemStylePlain target:self action:@selector(pushQrVC)];
+    UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"showIt" style:UIBarButtonItemStylePlain target:self action:@selector(pushQRCodeVC)];
     self.navigationItem.rightBarButtonItem = rightItem;
     // Do any additional setup after loading the view, typically from a nib.
     
@@ -49,7 +49,7 @@
     return _qrImageView;
 }
 
-- (void)pushQrVC
+- (void)pushQRCodeVC
 {
     QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
     [self presentViewController:qrVC animated:YES completion:nil];
@@ -63,12 +63,16 @@
             [qrVC dismissViewControllerAnimated:YES completion:nil];
         }
     }];
-    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleDefault;
 }
 
 @end

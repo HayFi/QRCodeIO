@@ -29,6 +29,7 @@
 		552AB8281BE73E7200F31940 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552AB8271BE73E7200F31940 /* CoreGraphics.framework */; };
 		552AB82A1BE73E7800F31940 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 552AB8291BE73E7800F31940 /* Foundation.framework */; };
 		552AB8391BE7489500F31940 /* UIImage+QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 552AB8381BE7489500F31940 /* UIImage+QRCodeGenerator.m */; };
+		552AB83B1BE757B300F31940 /* darkReturn.png in Resources */ = {isa = PBXBuildFile; fileRef = 552AB83A1BE757B300F31940 /* darkReturn.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +91,7 @@
 		552AB8291BE73E7800F31940 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		552AB8371BE7489500F31940 /* UIImage+QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCodeGenerator.h"; sourceTree = "<group>"; };
 		552AB8381BE7489500F31940 /* UIImage+QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCodeGenerator.m"; sourceTree = "<group>"; };
+		552AB83A1BE757B300F31940 /* darkReturn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = darkReturn.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +159,7 @@
 				5514A8C71BE1C8A600C7130D /* QrCodeView.m */,
 				552AB8371BE7489500F31940 /* UIImage+QRCodeGenerator.h */,
 				552AB8381BE7489500F31940 /* UIImage+QRCodeGenerator.m */,
+				552AB83A1BE757B300F31940 /* darkReturn.png */,
 				550FA62A1BDF6B13004A2CFA /* Main.storyboard */,
 				550FA62D1BDF6B13004A2CFA /* Assets.xcassets */,
 				550FA62F1BDF6B13004A2CFA /* LaunchScreen.storyboard */,
@@ -322,6 +325,7 @@
 				550FA6311BDF6B13004A2CFA /* LaunchScreen.storyboard in Resources */,
 				550FA62E1BDF6B13004A2CFA /* Assets.xcassets in Resources */,
 				550FA62C1BDF6B13004A2CFA /* Main.storyboard in Resources */,
+				552AB83B1BE757B300F31940 /* darkReturn.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

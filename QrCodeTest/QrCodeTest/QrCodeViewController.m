@@ -22,11 +22,9 @@ static const float kReaderViewHeight = 200;
 
 @interface QrCodeViewController () <AVCaptureMetadataOutputObjectsDelegate>
 
-@property (nonatomic, strong) AVCaptureSession *qrSession;//回话
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *qrVideoPreviewLayer;//读取
+@property (nonatomic, strong) AVCaptureSession * qrSession;//回话
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer * qrVideoPreviewLayer;//读取
 @property (nonatomic, strong) QrCodeView * codeView;
-@property (nonatomic, strong) UIImageView *line;//交互线
-@property (nonatomic, strong) NSTimer *lineTimer;//交互线控制
 @property (nonatomic, copy) void (^qrScanResultBlock) (QrCodeViewController *,NSString *);
 
 @end
@@ -53,8 +51,6 @@ static const float kReaderViewHeight = 200;
         [_codeView removeFromSuperview];
         _codeView = nil;
     }
-    
-    
 }
 
 - (void)viewDidLoad {
@@ -67,7 +63,7 @@ static const float kReaderViewHeight = 200;
     [self initUserInterface];
     
     [self setOverlayPickerView];
-    [self startSYQRCodeReading];
+    [self startReadingQRCode];
     
     [self initTitleView];
     [self createBackBtn];
@@ -81,7 +77,7 @@ static const float kReaderViewHeight = 200;
 - (void)initTitleView
 {
     UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0,0,MAIN_SCREEN_WIDTH, 64)];
-    bgView.backgroundColor = [UIColor colorWithRed:62.0/255 green:199.0/255 blue:153.0/255 alpha:1.0];
+    bgView.backgroundColor = [UIColor colorWithRed:21.0/255.0 green:156.0/255.0 blue:115.0/255.0 alpha:1.0];
     [self.view addSubview:bgView];
     
     UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((MAIN_SCREEN_WIDTH - 120) / 2.0, 30, 120, 20)];
@@ -95,9 +91,10 @@ static const float kReaderViewHeight = 200;
 - (void)createBackBtn
 {
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [btn setFrame:CGRectMake(20, 28, 60, 24)];
-    [btn setImage:[UIImage imageNamed:@"sgdtw"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(cancleSYQRCodeReading) forControlEvents:UIControlEventTouchUpInside];
+    btn.frame = CGRectMake(16, 28, 21, 22);
+    [btn setContentMode:UIViewContentModeScaleAspectFit];
+    [btn setImage:[UIImage imageNamed:@"darkReturn"] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(cancelReadingQRCode) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:btn];
 }
 
@@ -116,9 +113,7 @@ static const float kReaderViewHeight = 200;
     }
     
     //设置输出(Metadata元数据)
-    AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
-    
-    //使用主线程队列，相应比较同步，使用其他队列，相应不同步，容易让用户产生不好的体验
+    AVCaptureMetadataOutput * output = [[AVCaptureMetadataOutput alloc] init];
     [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
     [output setRectOfInterest:[self getReaderViewBoundsWithSize:CGSizeMake(kReaderViewWidth, kReaderViewHeight)]];
     
@@ -182,7 +177,7 @@ static const float kReaderViewHeight = 200;
     //扫描结果
     __weak typeof(self) weakSelf = self;
     if (metadataObjects.count > 0) {
-        [self stopSYQRCodeReading];
+        [self stopReadingQRCode];
         
         AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
        
@@ -218,32 +213,37 @@ static const float kReaderViewHeight = 200;
 
 #pragma mark 交互事件
 
-- (void)startSYQRCodeReading
+- (void)startReadingQRCode
 {
     [self.qrSession startRunning];
     
     NSLog(@"startRunning");
 }
 
-- (void)stopSYQRCodeReading
+- (void)stopReadingQRCode
 {
-    if (_lineTimer) {
-        [_lineTimer invalidate];
-        _lineTimer = nil;
+    if (_codeView.lineTimer) {
+        [_codeView.lineTimer invalidate];
+        _codeView.lineTimer = nil;
     }
     [self.qrSession stopRunning];
     NSLog(@"stopRunning");
 }
 
 //取消扫描
-- (void)cancleSYQRCodeReading
+- (void)cancelReadingQRCode
 {
-    [self stopSYQRCodeReading];
+    [self stopReadingQRCode];
     
     if (self.qrScanResultBlock) {
         self.qrScanResultBlock(self, CancelMessageFlag);
     }
     NSLog(@"cancelRunning");
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
 }
 
 @end
