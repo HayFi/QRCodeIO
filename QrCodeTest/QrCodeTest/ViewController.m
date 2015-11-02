@@ -7,8 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "QrCodeViewController.h"
-#import "UIImage+QRCodeGenerator.h"
+#import "QrCodeIO.h"
 
 @interface ViewController ()
 
@@ -24,7 +23,6 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UIBarButtonItem * rightItem = [[UIBarButtonItem alloc] initWithTitle:@"showIt" style:UIBarButtonItemStylePlain target:self action:@selector(pushQRCodeVC)];
     self.navigationItem.rightBarButtonItem = rightItem;
-    // Do any additional setup after loading the view, typically from a nib.
     
     [self.view addSubview:self.qrImageView];
     

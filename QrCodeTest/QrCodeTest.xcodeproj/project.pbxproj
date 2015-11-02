@@ -90,6 +90,7 @@
 		552AB8541BE75C6000F31940 /* QrCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QrCodeViewController.m; sourceTree = "<group>"; };
 		552AB8551BE75C6000F31940 /* UIImage+QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCodeGenerator.h"; sourceTree = "<group>"; };
 		552AB8561BE75C6000F31940 /* UIImage+QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCodeGenerator.m"; sourceTree = "<group>"; };
+		552AB8631BE75E0700F31940 /* QrCodeIO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QrCodeIO.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +195,7 @@
 				552AB8541BE75C6000F31940 /* QrCodeViewController.m */,
 				552AB8551BE75C6000F31940 /* UIImage+QRCodeGenerator.h */,
 				552AB8561BE75C6000F31940 /* UIImage+QRCodeGenerator.m */,
+				552AB8631BE75E0700F31940 /* QrCodeIO.h */,
 			);
 			path = QRCodeIO;
 			sourceTree = "<group>";
