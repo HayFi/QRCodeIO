@@ -83,7 +83,7 @@ static const float viewHeight = 200;
     titleLabel.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:titleLabel];
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIButton * btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(16, 28, 21, 22);
     [btn setContentMode:UIViewContentModeScaleAspectFit];
     [btn setImage:[UIImage imageNamed:@"darkReturn"] forState:UIControlStateNormal];
