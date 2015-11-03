@@ -58,7 +58,7 @@
             [qrVC dismissViewControllerAnimated:YES completion:nil];
         } else {
             weakSelf.label.text = resultMessage;
-            weakSelf.qrImageView.image = [UIImage qrImageForString:resultMessage imageSize:weakSelf.qrImageView.bounds.size.width];
+            weakSelf.qrImageView.image = [UIImage qrImageForString:resultMessage imageWidth:weakSelf.qrImageView.bounds.size.width topImage:[UIImage imageNamed:@"doge"]];
             [qrVC dismissViewControllerAnimated:YES completion:nil];
         }
     }];
