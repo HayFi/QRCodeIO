@@ -50,18 +50,32 @@
 - (void)pushQRCodeVC
 {
     QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
-    [self presentViewController:qrVC animated:YES completion:nil];
+    [self viewController:self transitionWithAnimationSubtype:kCATransitionFromRight];
+//    [qrVC setModalTransitionStyle:UIModalTransitionStyleFlipHorizontal];
+    [self presentViewController:qrVC animated:NO completion:nil];
     //对数据进行回调，并将扫描得到的二维码生成为二维码图片
     __weak typeof(self) weakSelf = self;
     [qrVC scanQrcodeWithResultBlock:^(QrCodeViewController *qrVC, NSString *resultMessage) {
         if ([resultMessage isEqualToString:FailMessageFlag] || [resultMessage isEqualToString:CancelMessageFlag]) {
-            [qrVC dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf viewController:qrVC transitionWithAnimationSubtype:kCATransitionFromLeft];
+            [qrVC dismissViewControllerAnimated:NO completion:nil];
         } else {
             weakSelf.label.text = resultMessage;
             weakSelf.qrImageView.image = [UIImage qrImageForString:resultMessage imageWidth:weakSelf.qrImageView.bounds.size.width topImage:[UIImage imageNamed:@"doge"]];
-            [qrVC dismissViewControllerAnimated:YES completion:nil];
+            [weakSelf viewController:qrVC transitionWithAnimationSubtype:kCATransitionFromLeft];
+            [qrVC dismissViewControllerAnimated:NO completion:nil];
         }
     }];
+}
+
+- (void)viewController:(UIViewController *)vc transitionWithAnimationSubtype:(NSString *)type
+{
+    CATransition * transition = [CATransition animation];
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.duration = 0.3;
+    transition.type = kCATransitionPush;
+    transition.subtype = type;
+    [vc.view.window.layer addAnimation:transition forKey:nil];
 }
 
 - (void)didReceiveMemoryWarning {
