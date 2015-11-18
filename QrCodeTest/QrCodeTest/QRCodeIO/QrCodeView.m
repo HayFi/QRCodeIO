@@ -105,8 +105,6 @@ static const float viewHeight = 200;
         [self addSubview:scanCropView];
         
         _flag = YES;
-        
-        
     }
     return self;
 }

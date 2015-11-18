@@ -78,12 +78,6 @@ static const float viewHeight = 200;
         [_codeView removeFromSuperview];
         _codeView = nil;
     }
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 - (QrCodeView *)codeView
@@ -153,8 +147,6 @@ static const float viewHeight = 200;
     //将图层添加到视图的图层
     [self.view.layer insertSublayer:self.qrVideoPreviewLayer atIndex:0];
 }
-
-
 
 #pragma mark -- <AVCaptureMetadataOutputObjectsDelegate>
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
