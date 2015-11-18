@@ -25,7 +25,7 @@ static const float viewHeight = 200;
 @property (nonatomic, strong) AVCaptureSession * qrSession;//回话
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer * qrVideoPreviewLayer;//读取
 @property (nonatomic, strong) QrCodeView * codeView;
-@property (nonatomic, copy) void (^qrScanResultBlock) (QrCodeViewController *,NSString *);
+@property (nonatomic, copy) hf_ScanQrcodeBlock qrScanResultBlock;
 
 @end
 
@@ -183,9 +183,9 @@ static const float viewHeight = 200;
     }
 }
 
-- (void)scanQrcodeWithResultBlock:(void (^)(QrCodeViewController *, NSString *))block
+- (void)scanQrcodeWithResultBlock:(hf_ScanQrcodeBlock)resultBlock
 {
-    self.qrScanResultBlock = block;
+    self.qrScanResultBlock = resultBlock;
 }
 
 #pragma mark -- 交互事件

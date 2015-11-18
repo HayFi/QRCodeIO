@@ -65,16 +65,6 @@
     }];
 }
 
-- (void)viewController:(UIViewController *)vc transitionWithAnimationSubtype:(NSString *)type
-{
-    CATransition * transition = [CATransition animation];
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.duration = 0.3;
-    transition.type = kCATransitionPush;
-    transition.subtype = type;
-    [vc.view.window.layer addAnimation:transition forKey:nil];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

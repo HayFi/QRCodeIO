@@ -13,7 +13,9 @@
 
 @interface QrCodeViewController : UIViewController
 
-- (void)scanQrcodeWithResultBlock:(void (^)(QrCodeViewController * qrVC, NSString * resultMessage))block;
+typedef void (^hf_ScanQrcodeBlock)(QrCodeViewController * qrVC, NSString * resultMessage);
+
+- (void)scanQrcodeWithResultBlock:(hf_ScanQrcodeBlock)resultBlock;
 
 - (void)backAndRemove;
 
