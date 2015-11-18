@@ -49,17 +49,18 @@
 
 - (void)pushQRCodeVC
 {
-    QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
-    [self presentViewController:qrVC animated:YES completion:nil];
-    //对数据进行回调，并将扫描得到的二维码生成为二维码图片
+    __block QrCodeViewController * qrVC = [[QrCodeViewController alloc] init];
+    [self.navigationController pushViewController:qrVC animated:YES];
+    //对数据进行回调
     __weak typeof(self) weakSelf = self;
     [qrVC scanQrcodeWithResultBlock:^(QrCodeViewController *qrVC, NSString *resultMessage) {
+        [qrVC backAndRemove];
         if ([resultMessage isEqualToString:FailMessageFlag] || [resultMessage isEqualToString:CancelMessageFlag]) {
-            [qrVC dismissViewControllerAnimated:YES completion:nil];
+            [qrVC.navigationController popViewControllerAnimated:YES];
         } else {
             weakSelf.label.text = resultMessage;
             weakSelf.qrImageView.image = [UIImage qrImageForString:resultMessage imageSize:weakSelf.qrImageView.bounds.size.width];
-            [qrVC dismissViewControllerAnimated:YES completion:nil];
+            [qrVC.navigationController popViewControllerAnimated:YES];
         }
     }];
 }

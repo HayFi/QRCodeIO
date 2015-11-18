@@ -15,9 +15,9 @@
 #define MAIN_SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 #define MAIN_SCREEN_BOUNDS [UIScreen mainScreen].bounds
 
-static const float kLineMinY = 185;
-static const float kReaderViewWidth = 200;
-static const float kReaderViewHeight = 200;
+static const float lineMinY = 185;
+static const float viewWidth = 200;
+static const float viewHeight = 200;
 
 
 @interface QrCodeViewController () <AVCaptureMetadataOutputObjectsDelegate>
@@ -33,6 +33,33 @@ static const float kReaderViewHeight = 200;
 
 - (void)dealloc
 {
+    [self backAndRemove];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"二维码扫描";
+    [self initUserInterface];
+    [self createQRcodeScanAction];
+    [self startReadingQRCode];
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self startReadingQRCode];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self stopReadingQRCode];
+}
+
+- (void)backAndRemove
+{
     if (_qrSession) {
         [_qrSession stopRunning];
         _qrSession = nil;
@@ -42,31 +69,16 @@ static const float kReaderViewHeight = 200;
         _qrVideoPreviewLayer = nil;
     }
     
-    if (_codeView.lineTimer) {
-        [_codeView.lineTimer invalidate];
-        _codeView.lineTimer = nil;
+    if (_codeView.timeMachine) {
+        [_codeView.timeMachine invalidate];
+        _codeView.timeMachine = nil;
     }
     
     if (_codeView) {
         [_codeView removeFromSuperview];
         _codeView = nil;
     }
-}
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"二维码扫描";
-   
-    [self initUserInterface];
-    
-    [self setOverlayPickerView];
-    [self startReadingQRCode];
-    
-    [self initTitleView];
-    [self createBackBtn];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -74,47 +86,40 @@ static const float kReaderViewHeight = 200;
     // Dispose of any resources that can be recreated.
 }
 
-- (void)initTitleView
+- (QrCodeView *)codeView
 {
-    UIView * bgView = [[UIView alloc] initWithFrame:CGRectMake(0,0,MAIN_SCREEN_WIDTH, 64)];
-    bgView.backgroundColor = [UIColor colorWithRed:21.0/255.0 green:156.0/255.0 blue:115.0/255.0 alpha:1.0];
-    [self.view addSubview:bgView];
-    
-    UILabel * titleLabel = [[UILabel alloc] initWithFrame:CGRectMake((MAIN_SCREEN_WIDTH - 120) / 2.0, 30, 120, 20)];
-    titleLabel.text = @"二维码扫描";
-    titleLabel.font = [UIFont systemFontOfSize:18.0];
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:titleLabel];
+    if (!_codeView) {
+        _codeView = [[QrCodeView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
+    }
+    return _codeView;
 }
-
-- (void)createBackBtn
-{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(16, 28, 21, 22);
-    [btn setContentMode:UIViewContentModeScaleAspectFit];
-    [btn setImage:[UIImage imageNamed:@"darkReturn"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(cancelReadingQRCode) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:btn];
-}
-
 
 - (void)initUserInterface
+{
+    [self.view addSubview:self.codeView];
+}
+
+- (CGRect)getReaderViewBoundsWithSize:(CGSize)size
+{
+    return CGRectMake(lineMinY / MAIN_SCREEN_HEIGHT, ((MAIN_SCREEN_WIDTH - size.width) / 2.0) / MAIN_SCREEN_WIDTH, size.height / MAIN_SCREEN_HEIGHT, size.width / MAIN_SCREEN_WIDTH);
+}
+
+- (void)createQRcodeScanAction
 {
     AVCaptureDevice * captureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
     
     NSError * error = nil;
     
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
+    AVCaptureDeviceInput * deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     if (error) {
         NSLog(@"没有摄像头-%@", error.localizedDescription);
         return;
     }
     
-    //设置输出(Metadata元数据)
+    //设置输出
     AVCaptureMetadataOutput * output = [[AVCaptureMetadataOutput alloc] init];
     [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    [output setRectOfInterest:[self getReaderViewBoundsWithSize:CGSizeMake(kReaderViewWidth, kReaderViewHeight)]];
+    [output setRectOfInterest:[self getReaderViewBoundsWithSize:CGSizeMake(viewWidth, viewHeight)]];
     
     //拍摄会话
     self.qrSession = [[AVCaptureSession alloc] init];
@@ -128,8 +133,8 @@ static const float kReaderViewHeight = 200;
         [self.qrSession setSessionPreset:AVCaptureSessionPresetPhoto];
     }
     
-    if ([self.qrSession canAddInput:input]) {
-        [self.qrSession addInput:input];
+    if ([self.qrSession canAddInput:deviceInput]) {
+        [self.qrSession addInput:deviceInput];
     }
     
     if ([self.qrSession canAddOutput:output]) {
@@ -141,34 +146,15 @@ static const float kReaderViewHeight = 200;
     
     //设置预览图层
     self.qrVideoPreviewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.qrSession];
-    
     //设置preview图层的属性
     [self.qrVideoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    
     //设置preview图层的大小
     self.qrVideoPreviewLayer.frame = self.view.layer.bounds;
-    
     //将图层添加到视图的图层
     [self.view.layer insertSublayer:self.qrVideoPreviewLayer atIndex:0];
 }
 
-- (CGRect)getReaderViewBoundsWithSize:(CGSize)size
-{
-    return CGRectMake(kLineMinY / MAIN_SCREEN_HEIGHT, ((MAIN_SCREEN_WIDTH - size.width) / 2.0) / MAIN_SCREEN_WIDTH, size.height / MAIN_SCREEN_HEIGHT, size.width / MAIN_SCREEN_WIDTH);
-}
 
-- (void)setOverlayPickerView
-{
-    [self.view addSubview:self.codeView];
-}
-
-- (QrCodeView *)codeView
-{
-    if (!_codeView) {
-        _codeView = [[QrCodeView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds))];
-    }
-    return _codeView;
-}
 
 #pragma mark -- <AVCaptureMetadataOutputObjectsDelegate>
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputMetadataObjects:(NSArray *)metadataObjects fromConnection:(AVCaptureConnection *)connection
@@ -178,12 +164,12 @@ static const float kReaderViewHeight = 200;
     if (metadataObjects.count > 0) {
         [self stopReadingQRCode];
         
-        AVMetadataMachineReadableCodeObject *obj = metadataObjects[0];
-       
+        AVMetadataMachineReadableCodeObject * obj = metadataObjects[0];
+        
         if (obj.stringValue && ![obj.stringValue isEqualToString:@""] && obj.stringValue.length > 0) {
             NSLog(@"%@",obj.stringValue);
             
-            if ([obj.stringValue containsString:@"http"]) {
+            if ([obj.stringValue containsString:@"http:"]) {
                 if (self.qrScanResultBlock) {
                     NSLog(@"success");
                     self.qrScanResultBlock(weakSelf,obj.stringValue);
@@ -210,20 +196,24 @@ static const float kReaderViewHeight = 200;
     self.qrScanResultBlock = block;
 }
 
-#pragma mark 交互事件
+#pragma mark -- 交互事件
 
 - (void)startReadingQRCode
 {
+    if (_codeView.timeMachine) {
+        [_codeView.timeMachine invalidate];
+        _codeView.timeMachine = nil;
+    }
+    [_codeView startToScan];
     [self.qrSession startRunning];
-    
     NSLog(@"startRunning");
 }
 
 - (void)stopReadingQRCode
 {
-    if (_codeView.lineTimer) {
-        [_codeView.lineTimer invalidate];
-        _codeView.lineTimer = nil;
+    if (_codeView.timeMachine) {
+        [_codeView.timeMachine invalidate];
+        _codeView.timeMachine = nil;
     }
     [self.qrSession stopRunning];
     NSLog(@"stopRunning");

@@ -15,4 +15,6 @@
 
 - (void)scanQrcodeWithResultBlock:(void (^)(QrCodeViewController * qrVC, NSString * resultMessage))block;
 
+- (void)backAndRemove;
+
 @end
